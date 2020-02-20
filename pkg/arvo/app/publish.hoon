@@ -89,6 +89,7 @@
   ++  on-load
     |=  old=vase
     ^-  (quip card _this)
+    ~&  %on-load
     =/  old-state=(each versioned-state tang)
       (mule |.(!<(versioned-state old)))
     ?:  ?=(%& -.old-state)
@@ -131,6 +132,7 @@
     ::
     ++  leave-subs
       ^-  (list card)
+      ~&  %leave-subs
       %+  turn  ~(tap by wex.bol)
       |=  [[wir=wire who=@p @] ? path]
       ^-  card
@@ -138,6 +140,7 @@
     ::
     ++  kick-subs
       ^-  [(list card) (jug @tas @p)]
+      ~&  %kick-subs
       =+  ^-  [paths=(list path) subs=(jug @tas @p)]
         %+  roll  ~(tap by sup.bol)
         |=  [[duct [who=@p pax=path]] paths=(list path) subs=(jug @tas @p)]
@@ -153,6 +156,7 @@
     ::
     ++  kill-builds
       ^-  (list card)
+      ~&  %kill-builds
       %-  zing
       %+  turn  ~(tap by pubs.zero)
       |=  [col-name=@tas col-data=collection-zero]
@@ -168,6 +172,7 @@
     ++  send-invites
       |=  [book=@tas subscribers=(set @p)]
       ^-  (list card)
+      ~&  %send-invites
       %+  turn  ~(tap in subscribers)
       |=  who=@p
       ^-  card
@@ -182,6 +187,7 @@
     ++  move-files
       |=  old-subs=(jug @tas @p)
       ^-  (list card)
+      ~&  %move-files
       =+  ^-  [cards=(list card) sob=soba:clay]
         %+  roll  .^((list path) %ct (weld our-beak:main /web/publish))
         |=  [pax=path car=(list card) sob=soba:clay]
@@ -196,7 +202,7 @@
           =/  book=notebook-info
             [title.old '' =(%open comments.old) / /]
           =+  ^-  [grp-car=(list card) write-pax=path read-pax=path]
-            (make-groups book-name group-pax ~ %.n %.n)
+            (make-groups:main book-name group-pax ~ %.n %.n)
           =.  writers.book      write-pax
           =.  subscribers.book  read-pax
           =/  inv-car  (send-invites book-name (~(get ju old-subs) book-name))
